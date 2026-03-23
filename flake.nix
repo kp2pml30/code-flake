@@ -13,21 +13,19 @@
       data = builtins.fromJSON (builtins.readFile ./data.json);
     in
     {
-      packages = forAllSystems (system:
+      overlays.default = final: prev:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
-          vscodeSystem = systems.${system};
+          vscodeSystem = systems.${final.system};
         in
         {
-          default = pkgs.vscode.overrideAttrs (oldAttrs: rec {
+          vscode = prev.vscode.overrideAttrs (oldAttrs: rec {
             version = data.version;
             src = builtins.fetchTarball {
               url = "https://update.code.visualstudio.com/${version}/${vscodeSystem}/stable";
               sha256 = data.hashes.${vscodeSystem};
             };
           });
-        }
-      );
+        };
 
       devShells = forAllSystems (system:
         let
