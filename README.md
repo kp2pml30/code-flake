@@ -7,19 +7,18 @@ Nix flake that provides a pinned version of VS Code, updated automatically via G
 ```nix
 # flake.nix
 {
-  inputs.code-flake.url = "github:OWNER/code-flake";
+  inputs.code-flake.url = "github:kp2pml30/code-flake";
 
-  outputs = { self, code-flake, ... }: {
-    # Use as a package
-    environment.systemPackages = [ code-flake.packages.${system}.default ];
+  outputs = { self, nixpkgs, code-flake, ... }: {
+    nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
+      # ...
+      modules = [{
+        nixpkgs.overlays = [ code-flake.overlays.default ];
+        environment.systemPackages = [ pkgs.vscode ];
+      }];
+    };
   };
 }
-```
-
-Or run directly:
-
-```sh
-nix run github:OWNER/code-flake
 ```
 
 ## Supported systems
@@ -36,7 +35,7 @@ nix run github:OWNER/code-flake
 
 - `data.json` stores the current VS Code version and pre-fetched hashes for each platform
 - `systems.json` maps Nix system names to VS Code download targets
-- `flake.nix` overrides `pkgs.vscode` with the pinned version and hash
+- `flake.nix` exposes an overlay that overrides `pkgs.vscode` with the pinned version and hash
 - A GitHub Action runs daily and checks for new releases from [microsoft/vscode](https://github.com/microsoft/vscode/releases), prefetches all platform tarballs, and commits the updated `data.json`
 
 ## Manual update
