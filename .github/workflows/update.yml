@@ -1,0 +1,56 @@
+name: Update VS Code
+
+on:
+  schedule:
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "VS Code version to update to (leave empty for latest)"
+        required: false
+        type: string
+      force:
+        description: "Force update even if version matches"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v27
+
+      - name: Run update script
+        id: update
+        run: |
+          BEFORE=$(cat data.json)
+          ARGS=""
+          if [ -n "${{ inputs.version }}" ]; then
+            ARGS="$ARGS --version ${{ inputs.version }}"
+          fi
+          if [ "${{ inputs.force }}" = "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+          python3 update/update.py $ARGS
+          AFTER=$(cat data.json)
+          if [ "$BEFORE" != "$AFTER" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push
+        if: steps.update.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          VERSION=$(jq -r '.version' data.json)
+          git add data.json
+          git commit -m "Update VS Code to ${VERSION}"
+          git push

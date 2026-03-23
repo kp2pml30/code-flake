@@ -1,0 +1,10 @@
+{
+  "hashes": {
+    "darwin": "sha256:1sifndyxincsbcynp4h8gnlvrvvra2vp19ldd4sxb0c3p9jnp21v",
+    "darwin-arm64": "sha256:0wcg6dm2rl7hdmkcjn0xyph65jn567niwcja7awlkjqzp8ywj80q",
+    "linux-arm64": "sha256:0avyi4ag9f5x0qmf441yz5xlgn0xqkb6vhgb6h0dzc0plj8l457g",
+    "linux-armhf": "sha256:13zl4abkdyk2298hmiwfqb2cwac028zdww4zr6g2f2s33y799060",
+    "linux-x64": "sha256:1ngq6qs82qkj9jv5qldlizzxl4cwrsanb8g1h6mvsd76wazv2z1d"
+  },
+  "version": "1.112.0"
+}
