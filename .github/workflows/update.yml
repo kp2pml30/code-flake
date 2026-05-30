@@ -45,12 +45,18 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Smoke test (build + --version)
+        if: steps.update.outputs.changed == 'true'
+        run: |
+          nix flake update
+          ./update/smoke-test.sh
+
       - name: Commit and push
         if: steps.update.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           VERSION=$(jq -r '.version' data.json)
-          git add data.json
+          git add data.json flake.lock
           git commit -m "Update VS Code to ${VERSION}"
           git push
