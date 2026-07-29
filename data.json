@@ -1,10 +1,10 @@
 {
   "hashes": {
-    "darwin": "sha256:10pfp5sisrpj9dlppnqw0bj1gi6hr3mhlmmq9nvilsanvmyyn9n0",
-    "darwin-arm64": "sha256:0c801ayrzmjkkc9a6r1gvncsh2nr9bak9mxbabm1vwwakvm9c6wc",
-    "linux-arm64": "sha256:052kkj737dz8zd0ycg6113b2b98xraggkfx9c8dvp3yrvbqp8w83",
-    "linux-armhf": "sha256:0rxw0p48s3dp2w1nxlzrcgxlv5ps8wzhsffbqdwrgl280y6qgh4k",
-    "linux-x64": "sha256:05r0j0al5kyjg8w999k45ssgff390sncmsgmnfczwbnv66szr6pq"
+    "darwin": "sha256:1kb4b66s826hrn5lamilih85pb5x3wc7wjg94kkn52vxrgl7mdlf",
+    "darwin-arm64": "sha256:1d1bxg8763qmgcsvhfr6kghip9wqv82bci2wsi1kpmf5as7581ph",
+    "linux-arm64": "sha256:0mh594fagha9csgip0rhlf2pxkxblqqk5cdnch7f41i6m1c1b4m9",
+    "linux-armhf": "sha256:1g90405s9j1dymc3n5xpl1yfah1s27qf65mjgrsnyaskc08s2s0a",
+    "linux-x64": "sha256:0g696svyh095ajg5bxm2j9j7z94vfr7h62g4vcrkw8cw4k4xyp6q"
   },
-  "version": "1.130.0"
+  "version": "1.131.0"
 }
